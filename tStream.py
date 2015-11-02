@@ -35,7 +35,7 @@ class listener(StreamListener):
 					# fetch the title of the webpage
 					# tweet[u'linktitle']=title
 					
-					strtweet=json.dumps(tweet)
+					strtweet=json.dumps(tweet[u'id']+tweet[u'text'])
 					
 					#saveFile = open('test.csv', 'a')
 					output.write(strtweet)
