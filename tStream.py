@@ -4,12 +4,13 @@ from tweepy.streaming import StreamListener
 import time
 import json
 import os
+import sys
 
 #path for files to save
 path = "/Users/RashidGoshtasbi/twitter/tweets"
 
 #5GB required for downloads
-FinalSize = 500
+finalSize = 500
 
 #Number of file for multiple file creations
 numFile = 1
@@ -23,30 +24,44 @@ asecret="RP0tJAc9rYnQssJkT6EXfCActzLbxfLoiWcX62IbrE2n0"
 class listener(StreamListener):
 	def on_data(self, data):
 		global numFile
+		global finalSize
 		try:
-			#print (data)
-			
-			timeStamp = data.split('created_at":"')[1].split('","id"')[0]
-			#print timeStamp
-			
-			tweet = data.split(',"text":')[1].split(',"source')[0]
-			#print tweet
+			with open("tweets"+str(numFile)+".txt", 'a') as output:
+				if(os.path.getsize("tweets"+str(numFile)+".txt") < 10000000):
+					tweet = json.loads(data)
+					print tweet[u'text']
+					# store this into anoother variable
+					# parse and get the link
+					# fetch the title of the webpage
+					# tweet[u'linktitle']=title
+					
+					strtweet=json.dumps(tweet)
+					
+					#saveFile = open('test.csv', 'a')
+					output.write(strtweet)
+					output.write('\n')
+					output.close()
+
+					
+					
+					
+					return(True)
+					
+				else:
+					if (numFile < finalSize):
+						numFile += 1
+					else:
+						os._exit(0)
 						
-			saveThis = timeStamp + '##' + tweet
-			saveFile = open('data1.csv', 'a')
-			saveFile.write(saveThis)
-			saveFile.write('\n')
-			saveFile.close()
-			return(True)
 		except BaseException, e:
 			print 'failed,', str(e)
-			time.sleep(1)
+			#time.sleep(1)
 
 	def on_error(self, status):
 		print status
-
 auth = OAuthHandler(ckey, csecret)
 auth.set_access_token(atoken, asecret)
 
 twitterStream = Stream(auth, listener())
 twitterStream.filter(locations=[-180,-90,180,90], languages=["en"])
+

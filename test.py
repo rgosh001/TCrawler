@@ -21,7 +21,7 @@ class listener(StreamListener):
             
             tweet = data.split(',"text":')[1].split(',"source')[0]
             #print tweet
-                        
+                         
             saveThis = timeStamp + '##' + tweet
 
 
