@@ -7,7 +7,7 @@ import os
 import sys
 
 #path for files to save
-path = "/Users/RashidGoshtasbi/twitter/tweets"
+path = "/"
 
 #5GB required for downloads
 finalSize = 500
