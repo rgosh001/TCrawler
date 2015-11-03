@@ -12,7 +12,6 @@ from bs4 import BeautifulSoup
 import re
 import urllib
 import urllib2
-import signal
 
 #path for files to save
 path = os.getcwd()
@@ -64,6 +63,7 @@ class listener(StreamListener):
 					else:
 						pass
 					
+					print tweet
 					out = json.dumps(tweet)
 					output.write(out + '\n')
 					return(True)

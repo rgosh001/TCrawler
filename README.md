@@ -5,14 +5,14 @@ SID: 861056442 and 861055750
 Hello there! T-Crawler is an open source project for Linux to download tweets over twitter that has geolocation enabled.
 
 ## Collaboration Details
-Description of contribtutions of each team member
+Description of contributions of each team member
 ### Rashid Goshtasbi
 * Figuring out an API to use
 * Researching instructions to download additional libraries to incorporate with API and product feature
-* Researching on implimentation on API
-* Creating Twiter account and signing up for Twitter Developer Access for special keys required by API
-* Figuring our nesseccary functions to use to run library functions
-* **Coding**: Configurign twitter API streaming functions:
+* Researching on implementation on API
+* Creating Twitter account and signing up for Twitter Developer Access for special keys required by API
+* Figuring our necessary functions to use to run library functions
+* **Coding**: Configuring twitter API streaming functions:
 
 		l = listener()
 		auth = OAuthHandler(ckey, csecret)
@@ -62,8 +62,8 @@ Description of contribtutions of each team member
 
 ### Brendan Cheng
 * Researching instructions to download additional libraries to incorporate with API and product feature
-* Researching on implimentation on API
-* **Coding**: Configurign twitter API streaming functions:
+* Researching on implementation on API
+* **Coding**: Configuring twitter API streaming functions:
 
 		l = listener()
 		auth = OAuthHandler(ckey, csecret)
@@ -102,16 +102,56 @@ Description of contribtutions of each team member
 * Figuring out how to output each JSON string onto a NEWLINE in our output file
 
 ## Overview of System
+Two functions: main(), listener()
+
+* Main function:
+	* Handles Twitter permissions
+	* Utilizes listener() to gather and store data
+* Listener function:
+	* Gathers data, Tweets, from Twitter and loads into a JSON object
+	* Parses Tweets into different fields of data from JSON object 
+	* Stores links and titles from parsed data into output file
+* Libraries: 
+	* time
+	* os
+	* sys
+	* random
+	* requests
+	* re
+	* urllib
+	* urlib2
+	* HTMLParser
+	* Stream
+	* OAuthHandler
+	* StreamListener
+	* BeautifulSoup
+	* Additional Libraries:
+	* tweepy
+	* tweepy.streaming
+	* bs4
+	* Data Structures:
+	* json
+	* string
+
 
 ## Limitations
 * Need to install additional libraries to use program
+* If a Tweet has two links, T-Crawler can only crawl the first link 
+* Only gathers data from Tweets in English
+* Gathers data from Tweets from all location, not specific
+* Exit through a keyboard interruption from the terminal may take several tries due to parent and child processes running
 
 ## Instructions
 ##### May vary depending on Operating System, examples below were used on Linux OSX
-NOTE: Program will download files to the current directory you have cloned the github to or where you have the file in
+***NOTE: Program will download files to the current directory you have cloned the Github to or where you have the file in***
 
-1. Instll PIP: In terminal, type in: **sudo easy_install pip**
+1. Install PIP: In terminal, type in: **sudo easy_install pip**
 2. Install tweepy API: In terminal, type: **sudo pip install tweepy**
 3. Install BeautifulSoup: In terminal, type in: **sudo pip install beautifulsoup4**
-4. clone program from **https://github.com/rgosh001/tweets.git** or copy tcrawler.py program to a directory of your choice
-5. 
+4. How to obtain T-Crawler using GitHub or if you have tcrawler.py file already:
+	1.  If you already have tcrawler.py program, skip ahead to step 5
+	2. clone program from https://github.com/rgosh001/tweets.git by typing **git clone https://github.com/rgosh001/tweets.git**
+	3. Once clone is complete, using the command line in your terminal, type **cd tweets** to enter resposity.
+5. While in the directory with tcrawler.py in it, to run T-Crawler, type into the command line **python tStream.py** NOTE: Program will also print out tweets downloaded into terminal window
+ and filenames associate by "**tweets#.txt**" will start appearing with downloaded tweets
+6. The downloaded files will max at 10MB each and will continue downloading 10MB files till the total size of 5GB is reached (download time may vary on internet connection as tested prior to release)
