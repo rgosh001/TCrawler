@@ -1,3 +1,4 @@
+from HTMLParser import HTMLParser
 from tweepy import Stream
 from tweepy import OAuthHandler
 from tweepy.streaming import StreamListener
@@ -5,9 +6,15 @@ import time
 import json
 import os
 import sys
+import random
+from bs4 import BeautifulSoup
+import re
+import urllib
+import urllib2
+import bs4
 
 #path for files to save
-path = "/"
+path = "/Users/RashidGoshtasbi/tweets"
 
 #5GB required for downloads
 finalSize = 500
@@ -28,22 +35,23 @@ class listener(StreamListener):
 		try:
 			with open("tweets"+str(numFile)+".txt", 'a') as output:
 				if(os.path.getsize("tweets"+str(numFile)+".txt") < 10000000):
-					tweet = json.loads(data)
-					print tweet[u'text']
 					# store this into anoother variable
 					# parse and get the link
 					# fetch the title of the webpage
 					# tweet[u'linktitle']=title
 					
-					strtweet=json.dumps(tweet)
-					
-					#saveFile = open('test.csv', 'a')
-					output.write(strtweet)
-					output.write('\n')
-					output.close()
-
-					
-					
+					tweet = json.loads(data)
+					text_tweet = tweet[u'text'] #THIS IS THE TEXT ONLY OF THE TWEET
+					print text_tweet
+										
+#					#use tweet_text to get url and save it into variable and enter below
+#					soup = BeautifulSoup(urllib2.urlopen(link_text))
+#					link_title = soup.title.string
+#					
+#					#WRITES ORIGINAL TEXT INTO FILE
+#					output.write(tweet)
+#					output.write('\n')
+#					output.close()
 					
 					return(True)
 					
@@ -59,9 +67,12 @@ class listener(StreamListener):
 
 	def on_error(self, status):
 		print status
-auth = OAuthHandler(ckey, csecret)
-auth.set_access_token(atoken, asecret)
+		
+if __name__ == '__main__':
 
-twitterStream = Stream(auth, listener())
-twitterStream.filter(locations=[-180,-90,180,90], languages=["en"])
+	l = listener()
+	auth = OAuthHandler(ckey, csecret)
+	auth.set_access_token(atoken, asecret)
+	twitterStream = Stream(auth, l)
+	twitterStream.filter(locations=[-180,-90,180,90], languages=["en"])
 
