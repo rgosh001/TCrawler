@@ -155,3 +155,5 @@ Two functions: main(), listener()
 5. While in the directory with tcrawler.py in it, to run T-Crawler, type into the command line **python tStream.py** NOTE: Program will also print out tweets downloaded into terminal window
  and filenames associate by "**tweets#.txt**" will start appearing with downloaded tweets
 6. The downloaded files will max at 10MB each and will continue downloading 10MB files till the total size of 5GB is reached (download time may vary on internet connection as tested prior to release)
+
+**PHOTOS SHOWING SYSTEM IN ACTIOB BELOW**
