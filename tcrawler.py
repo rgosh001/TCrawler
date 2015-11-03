@@ -12,8 +12,9 @@ from bs4 import BeautifulSoup
 import re
 import urllib
 import urllib2
+import signal
+
 #path for files to save
-#path = "/Users/RashidGoshtasbi/tweets"
 path = os.getcwd()
 
 #5GB required for downloads
@@ -50,7 +51,6 @@ class listener(StreamListener):
 					text_tweet = tweet[u'text']
 					
 					str1 = "http"
-										
 					#IF STATEMENTS LOOKS FOR TWEETS THAT HAVE TITLE
 					#IF IT DOESNT HAVE A URL, IT DOESNT PARSE IT
 					if (text_tweet.find('http') != -1):
@@ -63,17 +63,18 @@ class listener(StreamListener):
 						tweet[u'linktitle']= soup.title.string
 					else:
 						pass
-						
 					
 					out = json.dumps(tweet)
 					output.write(out + '\n')
-
 					return(True)
+					
 				else:
 					if (numFile < finalSize):
 						numFile += 1
 					else:
 						os._exit(0)
+		except KeyboardInterrupt:
+			sys.exit(0)
 		except BaseException, e:
 			print 'failed,', str(e)
 
@@ -90,6 +91,8 @@ if __name__ == '__main__':
 		try:
 			twitterStream = Stream(auth, l)
 			twitterStream.filter(locations=[-180,-90,180,90], languages=["en"])
+		except KeyboardInterrupt:
+			sys.exit(0)
 		except:
 			continue
 
