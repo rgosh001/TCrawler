@@ -36,15 +36,12 @@ class listener(StreamListener):
 		global numFile
 		global finalSize
 		global tweet 
-		#global text
 		global text_tweet
 		global str1
 		global link_text
 		try:
 			with open("tweets"+str(numFile)+".txt", 'a') as output:
-				if(os.path.getsize("tweets"+str(numFile)+".txt") < 10000000):
-					# tweet[u'linktitle']=title
-					
+				if(os.path.getsize("tweets"+str(numFile)+".txt") < 10000000):					
 					#LOADS ALL OF THE TWEET DATA INTO VARIABLE "TWEET"
 					tweet = json.loads(data)
 					
@@ -67,16 +64,10 @@ class listener(StreamListener):
 					else:
 						pass
 						
-					#text = json.loads(tweet)
-					#WRITES ORIGINAL TEXT INTO FILE
-					#print json.dumps(tweet)
 					
-#					json.dump(tweet + '\n',output)
 					out = json.dumps(tweet)
 					output.write(out + '\n')
 
-#					output.write(tweet)
-#					output.close()
 					return(True)
 				else:
 					if (numFile < finalSize):
@@ -85,7 +76,6 @@ class listener(StreamListener):
 						os._exit(0)
 		except BaseException, e:
 			print 'failed,', str(e)
-			#time.sleep(1)
 
 #	def on_error(self, status):
 #		print status
